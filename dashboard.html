@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Pemesanan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    .form-box {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      background: #25D366;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #20b85d;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <h2>Form Pemesanan</h2>
+    <form id="orderForm">
+      <label>Nama</label>
+      <input type="text" name="nama" required>
+
+      <label>Menu</label>
+      <select name="menu" required>
+        <option value="Kulit Lumpia (1 Pack)">Kulit Lumpia (1 Pack) - Rp 5.000</option>
+        <option value="Kulit Lumpia (1 Bal)">Kulit Lumpia (1 Bal) - Rp 80.000</option>
+      </select>
+
+      <label>Jumlah</label>
+      <input type="number" name="jumlah" min="1" required>
+
+      <label>Pembayaran</label>
+      <select name="pembayaran" required>
+        <option value="Transfer Bank">Transfer Bank</option>
+        <option value="COD">COD (Bayar di Tempat)</option>
+        <option value="E-Wallet">E-Wallet</option>
+      </select>
+
+      <label>Alamat</label>
+      <textarea name="alamat" required></textarea>
+
+      <label>No. HP</label>
+      <input type="text" name="nohp" required>
+
+      <button type="submit">Pesan Sekarang</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = new FormData(this);
+      const params = new URLSearchParams(data).toString();
+      window.location.href = "dashboard.html?" + params;
+    });
+  </script>
+</body>
+</html>

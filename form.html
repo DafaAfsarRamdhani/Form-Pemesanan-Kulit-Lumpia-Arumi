@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Pemesanan Kulit Lumpia Arumi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #87CEEB; /* biru langit */
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+            margin: 0;
+        }
+        .form-box, .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 380px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+        .list-pembayaran {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        .list-pembayaran li {
+            margin: 6px 0;
+            background: #f8f8f8;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .card {
+            display: none;
+            text-align: center;
+            max-width: 480px;
+        }
+        .detail {
+            text-align: left;
+            margin-top: 10px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        .detail p {
+            margin: 6px 0;
+        }
+        .alert {
+            margin-top: 12px;
+            padding: 8px 10px;
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+        }
+        a.btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .btn-back {
+            background: #4CAF50;
+        }
+        .btn-back:hover {
+            background: #45a049;
+        }
+        .btn-wa {
+            background: #25D366;
+        }
+        .btn-wa:hover {
+            background: #20b858;
+        }
+        .btn-wa img {
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+    <!-- FORM -->
+    <div class="form-box" id="formBox">
+        <h2>Form Pemesanan Kulit Lumpia Arumi</h2>
+        <form id="orderForm">
+            <label>Nama</label>
+            <input type="text" name="nama" required>
+
+            <label>Menu</label>
+            <select name="menu" required>
+                <option value="">-- Pilih Menu --</option>
+                <option value="Kulit Lumpia (1 pack)">Kulit Lumpia (1 pack) - Rp 5.000</option>
+                <option value="Kulit Lumpia (1 bal)">Kulit Lumpia (1 bal) - Rp 80.000</option>
+            </select>
+
+            <label>Jumlah</label>
+            <input type="number" name="jumlah" min="1" required>
+
+            <label>Metode Pembayaran</label>
+            <select name="pembayaran" required>
+                <option value="">-- Pilih Metode --</option>
+                <option value="Dana">Dana</option>
+                <option value="BRI">BRI</option>
+            </select>
+
+            <h3>Informasi Pembayaran</h3>
+            <ul class="list-pembayaran">
+                <li><strong>Dana:</strong> 083837306928</li>
+                <li><strong>BRI:</strong> 4238-01-007390-538 a/n Faozah bt Jamhari</li>
+            </ul>
+
+            <label>Alamat</label>
+            <textarea name="alamat" rows="3" required></textarea>
+
+            <label>No HP</label>
+            <input type="text" name="nohp" required>
+
+            <button type="submit">Kirim Pesanan</button>
+        </form>
+    </div>
+
+    <!-- HASIL -->
+    <div class="card" id="resultCard">
+        <h2>✅ Terima kasih atas pesanan Anda!</h2>
+        <div class="detail" id="detailPesanan"></div>
+        <div class="alert">
+            Klik logo Whatsapp lalu sertakan bukti pembayaran dengan cara kirim screenshoot melalui WhatsApp.
+        </div>
+        <div class="actions">
+            <a href="#" class="btn btn-back" onclick="goBack()">← Kembali</a>
+            <a href="#" target="_blank" class="btn btn-wa" id="waLink">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"> WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const hargaMenu = {
+            "Kulit Lumpia (1 pack)": 5000,
+            "Kulit Lumpia (1 bal)": 80000
+        };
+
+        const waNumber = "6287894803540"; // nomor WA penjual
+
+        document.getElementById("orderForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const nama = formData.get("nama");
+            const menu = formData.get("menu");
+            const jumlah = parseInt(formData.get("jumlah")) || 0;
+            const pembayaran = formData.get("pembayaran");
+            const alamat = formData.get("alamat");
+            let nohp = formData.get("nohp");
+
+            // format no hp ke 62
+            if (nohp.startsWith("0")) {
+                nohp = "62" + nohp.substring(1);
+            }
+
+            const hargaSatuan = hargaMenu[menu] || 0;
+            const totalHarga = hargaSatuan * jumlah;
+
+            // tampilkan detail
+            document.getElementById("detailPesanan").innerHTML = `
+                <p><strong>Nama:</strong> ${nama}</p>
+                <p><strong>Menu:</strong> ${menu}</p>
+                <p><strong>Jumlah:</strong> ${jumlah}</p>
+                <p><strong>Harga Satuan:</strong> Rp ${hargaSatuan.toLocaleString("id-ID")}</p>
+                <p><strong>Total Harga:</strong> Rp ${totalHarga.toLocaleString("id-ID")}</p>
+                <p><strong>Metode Pembayaran:</strong> ${pembayaran}</p>
+                <p><strong>Alamat:</strong> ${alamat}</p>
+                <p><strong>No HP:</strong> ${nohp}</p>
+            `;
+
+            // buat link WA
+            const pesan = `Halo, saya atas nama ${nama} ingin memesan ${menu} dengan jumlah ${jumlah}. Metode pembayaran: ${pembayaran}. Alamat: ${alamat}. Total harga: Rp ${totalHarga.toLocaleString("id-ID")}`;
+            document.getElementById("waLink").href = `https://wa.me/${waNumber}?text=${encodeURIComponent(pesan)}`;
+
+            // tampilkan card
+            document.getElementById("formBox").style.display = "none";
+            document.getElementById("resultCard").style.display = "block";
+        });
+
+        function goBack() {
+            document.getElementById("formBox").style.display = "block";
+            document.getElementById("resultCard").style.display = "none";
+        }
+    </script>
+</body>
+</html>

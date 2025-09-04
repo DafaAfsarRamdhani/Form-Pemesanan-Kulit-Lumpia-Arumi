@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu UMKM</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color:#87CEEB; /* 👉 Tambah warna biru langit */
+            font-family: Arial, sans-serif;
+        }
+        .form-box {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .menu-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .menu-item {
+            width: 150px;
+            text-align: center;
+            background: #eee;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 0 5px #aaa;
+        }
+        .button-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 8px 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-box">
+        <h2>Menu Makanan</h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <p><strong>Kulit Lumpia (1 Pack)</strong></p>
+                <p>Rp 5.000</p>
+            </div>
+            <div class="menu-item">
+                <p><strong>Kulit Lumpia (1 Bal)</strong></p>
+                <p>Rp 80.000</p>
+            </div>
+        </div>
+
+        <div class="button-nav">
+            <form action="index.html" method="get">
+                <button type="submit">Kembali</button>
+            </form>
+
+            <form action="form.html" method="get">
+                <button type="submit">Berikutnya</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
